@@ -17,7 +17,7 @@ FOREIGN KEY(user_table_id) REFERENCES User_table(user_table_id) ON DELETE CASCAD
 create table Category
 (
 category_id serial not null primary key,
-category_name varchar(255) not null,
+category_name varchar(255) not null
 );
 
 create table Product
@@ -36,7 +36,6 @@ PRIMARY KEY (receipt_id,product_id),
 FOREIGN KEY (receipt_id) REFERENCES Receipt(receipt_id) ON DELETE CASCADE,
 FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE
 );
-
 
 create table User_category
 (
