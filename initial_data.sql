@@ -50,6 +50,7 @@ create table Price
 (
 price_id serial not null primary key,
 product_price decimal(8,2) not null,
+receipt_price decimal(8,2) not null,
 product_id integer not null,
 receipt_id integer not null,
 FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE,

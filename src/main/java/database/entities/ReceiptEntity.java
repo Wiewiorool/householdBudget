@@ -2,7 +2,6 @@ package database.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.math.BigDecimal;
 import java.time.Instant;
 
 @Table(name = "Receipt")
@@ -20,9 +19,6 @@ public class ReceiptEntity {
 
     @Column(name = "date")
     private Instant date;
-
-    @Column(name = "receipt_price")
-    private BigDecimal receiptPrice;
 
     @OneToOne(cascade = CascadeType.ALL)
     @Column(name = "user_table_id")
