@@ -12,6 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class ReceiptEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
