@@ -3,6 +3,7 @@ package database.entities;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.Instant;
+import java.util.Set;
 
 @Table(name = "Receipt")
 @Entity
@@ -22,5 +23,8 @@ public class ReceiptEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
     @Column(name = "user_table_id")
-    private long userTableId;
+    private UserTableEntity userTableId;
+
+    @OneToMany(mappedBy = "receipt")
+    private Set<ProductReceiptEntity> productReceipts;
 }

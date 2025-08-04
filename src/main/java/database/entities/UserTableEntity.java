@@ -3,6 +3,8 @@ package database.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Table(name = "User_table")
 @Entity
 @Builder
@@ -21,4 +23,7 @@ public class UserTableEntity {
 
     @Column(name = "username")
     private String username;
+
+    @OneToMany(mappedBy = "user")
+    private Set<UserCategoryEntity> userCategories;
 }

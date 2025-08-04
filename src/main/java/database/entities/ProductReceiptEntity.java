@@ -11,18 +11,19 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@Data
 public class ProductReceiptEntity {
     @EmbeddedId
     private ProductReceiptId id;
 
     @ManyToOne
     @MapsId("productId")
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;
 
     @ManyToOne
     @MapsId("receiptId")
-    @JoinColumn(name = "receipt_id")
+    @JoinColumn(name = "receipt_id", nullable = false)
     private ReceiptEntity receipt;
+
+
 }

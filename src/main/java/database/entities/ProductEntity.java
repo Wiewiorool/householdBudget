@@ -3,6 +3,8 @@ package database.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Set;
+
 @Table(name = "Product")
 @Entity
 @Builder
@@ -22,6 +24,9 @@ public class ProductEntity {
 
     @Column(name = "product_name")
     private String productName;
+
+    @OneToMany(mappedBy = "product")
+    private Set<ProductReceiptEntity> productReceipts;
 
 }
 

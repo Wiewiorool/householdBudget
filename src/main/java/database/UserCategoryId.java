@@ -3,6 +3,7 @@ package database;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.*;
+
 import java.io.Serializable;
 
 @Embeddable
@@ -13,9 +14,9 @@ import java.io.Serializable;
 @Setter
 @EqualsAndHashCode
 public class UserCategoryId implements Serializable {
-    @Column(name="user_table_id")
+    @Column(name = "user_table_id")
     private long userTableId;
-    @Column(name="category_id")
+    @Column(name = "category_id")
     private long categoryId;
 
 }

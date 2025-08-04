@@ -15,11 +15,14 @@ public class UserCategoryEntity {
     @EmbeddedId
     private UserCategoryId userCategoryId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="product_id")
-    private ProductEntity productId;
+    @ManyToOne
+    @MapsId("userTableId")
+    @JoinColumn(name = "user_table_id", nullable = false)
+    private UserTableEntity user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="receipt_id")
-    private ReceiptEntity receiptId;
+    @ManyToOne
+    @MapsId("categoryId")
+    @JoinColumn(name = "category_id", nullable = false)
+    private CategoryEntity category;
+
 }
