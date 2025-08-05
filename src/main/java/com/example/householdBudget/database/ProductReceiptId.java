@@ -1,4 +1,4 @@
-package database;
+package com.example.householdBudget.database;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

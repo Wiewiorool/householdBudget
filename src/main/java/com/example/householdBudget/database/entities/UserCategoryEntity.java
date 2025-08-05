@@ -1,6 +1,6 @@
-package database.entities;
+package com.example.householdBudget.database.entities;
 
-import database.UserCategoryId;
+import com.example.householdBudget.database.UserCategoryId;
 import jakarta.persistence.*;
 import lombok.*;
 

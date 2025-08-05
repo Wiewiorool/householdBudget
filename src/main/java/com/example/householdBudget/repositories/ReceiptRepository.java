@@ -1,6 +1,6 @@
-package repositories;
+package com.example.householdBudget.repositories;
 
-import database.entities.ReceiptEntity;
+import com.example.householdBudget.database.entities.ReceiptEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
