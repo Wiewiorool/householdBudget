@@ -2,6 +2,7 @@ package com.example.householdBudget.database.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.time.Instant;
 import java.util.Set;
 
@@ -23,7 +24,7 @@ public class ReceiptEntity {
     private Instant date;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @Column(name = "user_table_id")
+    @JoinColumn(name = "user_table_id", referencedColumnName = "user_table_id")
     private UserTableEntity userTableId;
 
     @OneToMany(mappedBy = "receipt")

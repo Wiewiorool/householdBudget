@@ -22,8 +22,8 @@ public class UserTableEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "username")
-    private String username;
+    @Column(name = "surname")
+    private String surname;
 
     @OneToMany(mappedBy = "user")
     private Set<UserCategoryEntity> userCategories;

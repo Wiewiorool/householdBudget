@@ -17,12 +17,12 @@ public class UserCategoryEntity {
 
     @ManyToOne
     @MapsId("userTableId")
-    @JoinColumn(name = "user_table_id", nullable = false)
+    @JoinColumn(name = "user_table_id",nullable = false)
     private UserTableEntity user;
 
     @ManyToOne
     @MapsId("categoryId")
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id",nullable = false)
     private CategoryEntity category;
 
 }
