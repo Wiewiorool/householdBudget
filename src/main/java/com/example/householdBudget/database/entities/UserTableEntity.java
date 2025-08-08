@@ -23,4 +23,12 @@ public class UserTableEntity {
     @Column(name = "surname")
     private String surname;
 
+    @Override
+    public String toString() {
+        return "UserTableEntity{" +
+                "userTableId=" + userTableId +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                '}';
+    }
 }

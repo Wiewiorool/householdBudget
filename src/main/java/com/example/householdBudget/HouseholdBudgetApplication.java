@@ -9,6 +9,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
+import java.util.List;
+
 @SpringBootApplication
 public class HouseholdBudgetApplication {
 
@@ -22,13 +24,9 @@ public class HouseholdBudgetApplication {
         UserTableRepository userTableRepository = context.getBean(UserTableRepository.class);
 
         UserService userService = context.getBean(UserService.class);
-        UserTableEntity findUser = userService.findByNameAndSurname(firstName, lastName);
+        List<UserTableEntity> findAllUsers = userService.findByNameAndSurname(firstName, lastName);
 
-        if (findUser == null) {
-            log.info("User not found");
-            findUser = userService.addNewUser(firstName, lastName);
-        }
-        System.out.println(findUser);
+        System.out.println(findAllUsers);
     }
 
 }
