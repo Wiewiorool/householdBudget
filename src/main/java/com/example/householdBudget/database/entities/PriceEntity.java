@@ -22,9 +22,6 @@ public class PriceEntity {
     @Column(name = "product_price")
     private BigDecimal productPrice;
 
-    @Column(name = "receipt_price")
-    private BigDecimal receiptPrice;
-
     @JoinColumn(name = "product_id")
     @ManyToOne(cascade = CascadeType.ALL) //
     private ProductEntity product;
