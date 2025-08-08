@@ -3,7 +3,6 @@ package com.example.householdBudget.database.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
 
 @Table(name = "User_table")
 @Entity
@@ -12,7 +11,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class UserTableEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +23,4 @@ public class UserTableEntity {
     @Column(name = "surname")
     private String surname;
 
-    @OneToMany(mappedBy = "user")
-    private Set<UserCategoryEntity> userCategories;
 }

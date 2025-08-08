@@ -37,14 +37,6 @@ FOREIGN KEY (receipt_id) REFERENCES Receipt(receipt_id) ON DELETE CASCADE,
 FOREIGN KEY (product_id) REFERENCES Product(product_id) ON DELETE CASCADE
 );
 
-create table User_category
-(
-user_table_id integer not null,
-category_id integer not null,
-PRIMARY KEY (user_table_id,category_id),
-FOREIGN KEY (user_table_id) REFERENCES User_table(user_table_id) ON DELETE CASCADE,
-FOREIGN KEY (category_id) REFERENCES Category(category_id) ON DELETE CASCADE
-);
 
 create table Price
 (

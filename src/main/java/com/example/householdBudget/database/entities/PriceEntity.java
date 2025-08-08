@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class PriceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -3,8 +3,6 @@ package com.example.householdBudget.database.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
-
 @Table(name = "Category")
 @Entity
 @Builder
@@ -21,7 +19,4 @@ public class CategoryEntity {
 
     @Column(name="category_name")
     private String categoryName;
-
-    @OneToMany(mappedBy = "category")
-    private Set<UserCategoryEntity> userCategories;
 }
