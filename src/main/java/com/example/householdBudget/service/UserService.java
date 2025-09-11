@@ -18,7 +18,6 @@ public class UserService {
     }
 
     public UserTableEntity addNewUser(String userFirstName, String userLastName) {
-
         UserTableEntity newUser = UserTableEntity.builder()
                 .name(userFirstName)
                 .surname(userLastName)
@@ -26,11 +25,18 @@ public class UserService {
         return userTableRepository.save(newUser);
     }
 
-    public List<UserTableEntity> findByNameAndSurname(String userFirstName, String userLastName) {
+    public UserTableEntity findByNameAndSurname(String userFirstName, String userLastName) {
 
-        List<UserTableEntity> users = userTableRepository.findByNameAndSurname(userFirstName, userLastName);
+        List<UserTableEntity> user = userTableRepository.findByNameAndSurname(userFirstName, userLastName);
 
-        return users;
+        if (user.isEmpty()) {
+            log.info("User not found");
+        }
+        if (user.size() > 1) {
+            log.info("Found more than one user with that user name and last name ");
+        }
+
+        return user.getFirst();
     }
 
 }

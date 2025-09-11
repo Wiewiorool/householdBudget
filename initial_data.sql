@@ -17,12 +17,14 @@ FOREIGN KEY(user_table_id) REFERENCES User_table(user_table_id) ON DELETE CASCAD
 create table Category
 (
 category_id serial not null primary key,
-category_name varchar(255) not null
+category_name varchar(255) not null,
+user_table_id integer not null,
+FOREIGN KEY(user_table_id) REFERENCES User_table(user_table_id) ON DELETE CASCADE
 );
 
 create table Product
 (
-product_id serial primary key,
+product_id serial not null primary key,
 category_id integer not null,
 product_name varchar(255) not null,
 FOREIGN KEY (category_id) REFERENCES Category(category_id) ON DELETE CASCADE

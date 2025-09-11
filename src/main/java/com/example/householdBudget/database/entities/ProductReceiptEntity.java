@@ -25,5 +25,4 @@ public class ProductReceiptEntity {
     @JoinColumn(name = "receipt_id", nullable = false)
     private ReceiptEntity receipt;
 
-
 }

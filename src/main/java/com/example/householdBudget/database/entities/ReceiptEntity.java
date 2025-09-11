@@ -26,10 +26,21 @@ public class ReceiptEntity {
     @Column(name = "receipt_price")
     private BigDecimal receiptPrice;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "user_table_id", referencedColumnName = "user_table_id")
     private UserTableEntity userTableId;
 
-    @OneToMany(mappedBy = "receipt")
+    @OneToMany(mappedBy = "receipt", cascade = CascadeType.ALL)
     private Set<ProductReceiptEntity> productReceipts;
+
+    @Override
+    public String toString() {
+        return "ReceiptEntity{" +
+                "receiptId=" + receiptId +
+                ", " + date +
+                ", receiptPrice=" + receiptPrice +
+                ", userTableId=" + userTableId +
+                ", productReceipts=" + productReceipts +
+                '}';
+    }
 }

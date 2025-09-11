@@ -14,9 +14,9 @@ import java.util.Objects;
 @Setter
 public class ProductReceiptId implements Serializable {
     @Column(name = "product_id")
-    private long productId;
+    private Long productId;
     @Column(name = "receipt_id")
-    private long receiptId;
+    private Long receiptId;
 
     @Override
     public boolean equals(Object o) {

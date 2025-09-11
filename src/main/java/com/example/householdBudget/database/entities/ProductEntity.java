@@ -12,15 +12,15 @@ import java.util.Set;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString
+
 public class ProductEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
     private long productId;
 
-    @JoinColumn(name = "category_id")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id",nullable = false)
+    @ManyToOne
     private CategoryEntity category;
 
     @Column(name = "product_name")
@@ -29,5 +29,13 @@ public class ProductEntity {
     @OneToMany(mappedBy = "product")
     private Set<ProductReceiptEntity> productReceipts;
 
+    @Override
+    public String toString() {
+        return "ProductEntity{" +
+                "productName='" + productName + '\'' +
+                ", category=" + category +
+                ", productId=" + productId +
+                '}';
+    }
 }
 
