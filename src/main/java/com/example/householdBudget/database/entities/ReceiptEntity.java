@@ -30,7 +30,7 @@ public class ReceiptEntity {
     @JoinColumn(name = "user_table_id", referencedColumnName = "user_table_id")
     private UserTableEntity userTableId;
 
-    @OneToMany(mappedBy = "receipt", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "receipt", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<ProductReceiptEntity> productReceipts;
 
     @Override

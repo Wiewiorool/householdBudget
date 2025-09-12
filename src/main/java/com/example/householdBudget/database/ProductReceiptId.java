@@ -3,6 +3,7 @@ package com.example.householdBudget.database;
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.*;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -23,12 +24,20 @@ public class ProductReceiptId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductReceiptId that = (ProductReceiptId) o;
-        return productId == that.productId && receiptId == that.receiptId;
+        return productId.equals(that.productId) && receiptId.equals(that.receiptId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(productId, receiptId);
+    }
+
+    @Override
+    public String toString() {
+        return "ProductReceiptId{" +
+                "productId=" + productId +
+                ", receiptId=" + receiptId +
+                '}';
     }
 }
 

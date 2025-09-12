@@ -22,12 +22,8 @@ public class PriceEntity {
     private BigDecimal productPrice;
 
     @JoinColumn(name = "product_id")
-    @ManyToOne(cascade = CascadeType.DETACH) //
+    @ManyToOne(cascade = CascadeType.ALL) //
     private ProductEntity product;
-
-    @JoinColumn(name = "receipt_id")
-    @ManyToOne
-    private ReceiptEntity receipt;
 
     @Override
     public String toString() {
@@ -35,7 +31,6 @@ public class PriceEntity {
                 "priceId=" + priceId +
                 ", productPrice=" + productPrice +
                 ", product=" + product +
-                ", receipt=" + receipt +
                 '}';
     }
 }

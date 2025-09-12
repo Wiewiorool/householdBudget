@@ -2,10 +2,6 @@ package com.example.householdBudget.service;
 
 import com.example.householdBudget.database.entities.CategoryEntity;
 import com.example.householdBudget.database.entities.ProductEntity;
-import com.example.householdBudget.database.entities.ReceiptEntity;
-import com.example.householdBudget.database.entities.UserTableEntity;
-import com.example.householdBudget.repositories.CategoryRepository;
-import com.example.householdBudget.repositories.PriceRepository;
 import com.example.householdBudget.repositories.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,33 +30,28 @@ public class ProductService {
                 .category(category)
                 .build();
         return productRepository.save(prduct);
-
-
     }
 
-    public ProductEntity findProductByNameProduct(String productName) {
-
+    public Optional<ProductEntity> findProductByNameProduct(String productName) {
         List<ProductEntity> product = productRepository.findByProductName(productName);
 
         if (product.isEmpty()) {
             log.info("Product not found");
-            return null;
+            return Optional.empty();
         }
         if (product.size() > 1) {
             log.info("Found more than one product with that name ");
         }
-        return product.get(0);
+        return Optional.of(product.getFirst());
     }
-    public ProductEntity findById(long productId) {
+
+    public Optional<ProductEntity> findById(long productId) {
         Optional<ProductEntity> possibleProduct = productRepository.findById(productId);
 
         if (possibleProduct.isEmpty()) {
             log.info("Receipt does not exist" + productId);
-            return null;
-
+            return Optional.empty();
         }
-        return possibleProduct.get();
-
-
+        return possibleProduct;
     }
 }

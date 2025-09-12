@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @SpringBootApplication
 public class HouseholdBudgetApplication {
@@ -20,48 +21,40 @@ public class HouseholdBudgetApplication {
 
 
     public static void main(String[] args) {
-        String firstName = "Adam";
-        String lastName = "Smith";
-        String productName = "milk";
-        String categoryName = "groceries";
-        BigDecimal milkPrice = BigDecimal.valueOf(3.99);
-        BigDecimal waterPrice = BigDecimal.valueOf(2.59);
-        BigDecimal receiptPrice = BigDecimal.valueOf(2.59 + 3.99);
-
+        String firstName = "Jan";
+        String lastName = "Kowalski";
+        String productName = "water";
+        String categoryName = "furniture";
+        BigDecimal milkPrice = BigDecimal.valueOf(1.99);
+        BigDecimal waterPrice = BigDecimal.valueOf(3.00);
+        BigDecimal receiptPrice = BigDecimal.valueOf(100);
 
         ConfigurableApplicationContext context = SpringApplication.run(HouseholdBudgetApplication.class, args);
 
         UserService userService = context.getBean(UserService.class);
-        UserTableEntity findUser = userService.findByNameAndSurname(firstName, lastName); //sprawdzanie czy user istnieje jak nie
-        if (findUser == null) {                                                               // to go dodaje jezeli znajdzie to wyciaga z bazy danych
-            log.info("User not found, creating new user! ");
-            findUser = userService.addNewUser(firstName, lastName);
-        }
+
+        Optional<UserTableEntity> optionalUser = userService.findByNameAndSurname(firstName, lastName); //sprawdzanie czy user istnieje jak nie
 
         CategoryService categoryService = context.getBean(CategoryService.class);
         long newCategoryId = categoryService.addNewCategory(categoryName, firstName, lastName);
 
         ProductService productService = context.getBean(ProductService.class); // szukanie produktu zwracanie lub tworzenie nowego
-        ProductEntity findProduct = productService.findProductByNameProduct(productName);
-        if (findProduct == null) {
+        Optional<ProductEntity> optionalProduct = productService.findProductByNameProduct(productName);
+        if (optionalProduct.isEmpty()) {
             log.info("Product not found. Adding new Product.");
-            findProduct = productService.addNewProduct(productName, categoryName);
+            optionalProduct = Optional.of(productService.addNewProduct(productName, categoryName));
 
         }
 
         PriceService priceService = context.getBean(PriceService.class);
-        PriceEntity findPriceForProduct = priceService.findPriceForProductId(findProduct.getProductId());
+        Optional<PriceEntity> foundPriceForProductOptional = priceService.findPriceForProductId(optionalProduct.get().getProductId());
 
-        ReceiptService receiptService = context.getBean(ReceiptService.class);
-        ReceiptEntity newReceipt = receiptService.registerNewReceipt(receiptPrice, findUser, findProduct);
+        if (foundPriceForProductOptional.isEmpty()) {
+            foundPriceForProductOptional = Optional.of(priceService.addNewProductPrice(milkPrice, optionalProduct.get()));
 
-
-        if (findPriceForProduct == null) {
-            findPriceForProduct = priceService.addNewProductPrice(milkPrice, findProduct, newReceipt);
-
-        } else if (findPriceForProduct.getReceipt() == null) {
-            findPriceForProduct = priceService.addNewProductPrice(milkPrice, findProduct, newReceipt);
         }
+        ReceiptService receiptService = context.getBean(ReceiptService.class);
+        ReceiptEntity newReceipt = receiptService.registerNewReceipt(receiptPrice, optionalUser.get(), optionalProduct.get());
 
     }
 }

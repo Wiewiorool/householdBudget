@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -23,23 +24,22 @@ public class PriceService {
 
     }
 
-    public PriceEntity addNewProductPrice(BigDecimal productPrice, ProductEntity productEntity, ReceiptEntity receiptId) {
+    public PriceEntity addNewProductPrice(BigDecimal productPrice, ProductEntity productEntity) {
 
         PriceEntity newProductPrice = PriceEntity.builder()
                 .productPrice(productPrice)
                 .product(productEntity)
-                .receipt(receiptId)
                 .build();
         return priceRepository.save(newProductPrice);
     }
 
-    public PriceEntity findPriceForProductId(long productId) {
+    public Optional<PriceEntity> findPriceForProductId(long productId) {
         List<PriceEntity> price = priceRepository.findByProductId(productId);
 
         if (price.isEmpty()) {
             log.info("Price not found for that product id: " + price);
-            return null;
+            return Optional.empty();
         }
-        return price.getFirst();
+        return Optional.of(price.getFirst());
     }
 }

@@ -15,6 +15,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 
 @Slf4j
@@ -25,7 +26,8 @@ public class ReceiptService {
     private final ProductReceiptRepository productReceiptRepository;
 
 
-    public ReceiptService(@Autowired ReceiptRepository receiptRepository, ProductReceiptRepository productReceiptRepository) {
+    public ReceiptService(@Autowired ReceiptRepository receiptRepository,
+                          @Autowired ProductReceiptRepository productReceiptRepository) {
         this.receiptRepository = receiptRepository;
         this.productReceiptRepository = productReceiptRepository;
     }
@@ -34,30 +36,22 @@ public class ReceiptService {
     public ReceiptEntity registerNewReceipt(BigDecimal receiptPrice, UserTableEntity userTableEntity, ProductEntity productEntity) {
 
         Instant date = Instant.parse("2025-08-08T17:59:00Z");
+        ProductReceiptEntity productReceipt = ProductReceiptEntity.builder()
+                .id(ProductReceiptId.builder()
+                        .productId(productEntity.getProductId())
+                        /* .receiptId(newReceipt.getReceiptId())*/
+                        .build())
+                .product(productEntity)
+/*.receipt(newReceipt)*/
+                .build();
 
         ReceiptEntity newReceipt = ReceiptEntity.builder()
+                .productReceipts((Set.of(productReceipt)))
                 .userTableId(userTableEntity)
                 .receiptPrice(receiptPrice)
                 .date(date)
                 .build();
         receiptRepository.save(newReceipt);
-
-        ProductReceiptEntity productReceipt = ProductReceiptEntity.builder() //na twardo wprowadzam ID productReceiptId, wciaz do poprawy
-                .id(ProductReceiptId.builder()
-                        .productId(productEntity.getProductId())
-                        .receiptId(newReceipt.getReceiptId())
-                        .build())
-                .product(productEntity)
-                .receipt(newReceipt)
-                .build();
-        productReceiptRepository.save(productReceipt);
-
-        if (newReceipt.getProductReceipts() == null) {
-            newReceipt.setProductReceipts(new HashSet<>()); // inicjalizujemy pusta kolekcje zeby dodac produkty do rachunku
-        }
-        newReceipt.getProductReceipts().add(productReceipt);
-
-
 
         System.out.println("added new Receipt" + newReceipt);
         return newReceipt;
