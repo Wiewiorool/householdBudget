@@ -15,15 +15,22 @@ public class ProductReceiptEntity {
     @EmbeddedId
     private ProductReceiptId id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @MapsId("productId")
     @JoinColumn(name = "product_id", nullable = false)
     private ProductEntity product;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @MapsId("receiptId")
     @JoinColumn(name = "receipt_id", nullable = false)
     private ReceiptEntity receipt;
 
-
+    @Override
+    public String toString() {
+        return "ProductReceiptEntity{" +
+                "id=" + id +
+                ", productId=" + product.getProductId() +
+                ", receiptId=" + receipt.getReceiptId() +
+                '}';
+    }
 }
