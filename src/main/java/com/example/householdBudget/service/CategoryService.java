@@ -30,13 +30,13 @@ public class CategoryService {
             log.info("Category not found!");
             return null;
         }
-        return allCategoriesByName.get(0);
+        return allCategoriesByName.getFirst();
     }
 
     public long addNewCategory(String categoryName, String userName, String userSurname) {
         Optional<UserTableEntity> user = userService.findByNameAndSurname(userName, userSurname);
 
-        if (user.isEmpty()) {                                                               // to go dodaje jezeli znajdzie to wyciaga z bazy danych
+        if (user.isEmpty()) {
             log.info("User not found, creating new user! ");
             user = Optional.of(userService.addNewUser(userName, userSurname));
         }

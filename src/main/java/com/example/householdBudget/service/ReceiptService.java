@@ -7,13 +7,13 @@ import com.example.householdBudget.database.entities.ReceiptEntity;
 import com.example.householdBudget.database.entities.UserTableEntity;
 import com.example.householdBudget.repositories.ProductReceiptRepository;
 import com.example.householdBudget.repositories.ReceiptRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -32,29 +32,37 @@ public class ReceiptService {
         this.productReceiptRepository = productReceiptRepository;
     }
 
-
-    public ReceiptEntity registerNewReceipt(BigDecimal receiptPrice, UserTableEntity userTableEntity, ProductEntity productEntity) {
-
-        Instant date = Instant.parse("2025-08-08T17:59:00Z");
-        ProductReceiptEntity productReceipt = ProductReceiptEntity.builder()
-                .id(ProductReceiptId.builder()
-                        .productId(productEntity.getProductId())
-                        /* .receiptId(newReceipt.getReceiptId())*/
-                        .build())
-                .product(productEntity)
-/*.receipt(newReceipt)*/
-                .build();
+    @Transactional
+    public ReceiptEntity registerNewReceipt(BigDecimal receiptPrice,
+                                            UserTableEntity userTableEntity,
+                                            ProductEntity productEntity,
+                                            Instant date) {
 
         ReceiptEntity newReceipt = ReceiptEntity.builder()
-                .productReceipts((Set.of(productReceipt)))
                 .userTableId(userTableEntity)
                 .receiptPrice(receiptPrice)
                 .date(date)
                 .build();
-        receiptRepository.save(newReceipt);
 
-        System.out.println("added new Receipt" + newReceipt);
-        return newReceipt;
+        ReceiptEntity saved = receiptRepository.save(newReceipt);
+
+        ProductReceiptEntity productReceipt = ProductReceiptEntity.builder()
+                .id(ProductReceiptId.builder()
+                        .productId(productEntity.getProductId())
+                        .receiptId(saved.getReceiptId())
+                        .build())
+                .product(productEntity)
+                .receipt(saved)
+                .build();
+
+        ProductReceiptEntity savedReceiptProductEntity = productReceiptRepository.save(productReceipt);
+
+        saved.setProductReceipts(Set.of(savedReceiptProductEntity));
+
+        System.out.println("added new Receipt" + saved);
+
+
+        return saved;
     }
 
     /* JESZCZE DO DOPRACOWANIA

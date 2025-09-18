@@ -31,8 +31,7 @@ public class ProductService {
                 .build();
         return productRepository.save(prduct);
     }
-
-    public Optional<ProductEntity> findProductByNameProduct(String productName) {
+    public Optional<ProductEntity> findProductByProductName(String productName) {
         List<ProductEntity> product = productRepository.findByProductName(productName);
 
         if (product.isEmpty()) {

@@ -2,8 +2,8 @@ package com.example.householdBudget.service;
 
 import com.example.householdBudget.database.entities.PriceEntity;
 import com.example.householdBudget.database.entities.ProductEntity;
-import com.example.householdBudget.database.entities.ReceiptEntity;
 import com.example.householdBudget.repositories.PriceRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,21 +16,29 @@ import java.util.Optional;
 @Service
 public class PriceService {
     private final PriceRepository priceRepository;
+    private final ProductService productService;
 
 
-    public PriceService(@Autowired PriceRepository priceRepository
+    public PriceService(@Autowired PriceRepository priceRepository,
+                        @Autowired ProductService productService
     ) {
         this.priceRepository = priceRepository;
-
+        this.productService = productService;
     }
 
+    @Transactional
     public PriceEntity addNewProductPrice(BigDecimal productPrice, ProductEntity productEntity) {
+        Optional<ProductEntity> productEntities = productService.findById(productEntity.getProductId());
 
-        PriceEntity newProductPrice = PriceEntity.builder()
+        if (productEntities.isEmpty()) {
+            log.info("Price not found, creating new price! ");
+            productEntities = Optional.of(productService.addNewProduct(productEntity.getProductName(), productEntity.getCategory().getCategoryName()));
+        }
+        PriceEntity newPrice = PriceEntity.builder()
                 .productPrice(productPrice)
-                .product(productEntity)
+                .product(productEntities.get())
                 .build();
-        return priceRepository.save(newProductPrice);
+        return newPrice;
     }
 
     public Optional<PriceEntity> findPriceForProductId(long productId) {
