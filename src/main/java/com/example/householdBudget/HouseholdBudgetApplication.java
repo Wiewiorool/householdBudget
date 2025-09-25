@@ -27,6 +27,8 @@ public class HouseholdBudgetApplication {
         String lastName = "Kowalski";
         String productName = "juice";
         String categoryName = "furniture";
+        String newProductName = "water";
+        String newCategoryName = "soft drink";
         BigDecimal milkPrice = BigDecimal.valueOf(1.99);
         BigDecimal waterPrice = BigDecimal.valueOf(3.00);
         BigDecimal receiptPrice = BigDecimal.valueOf(100);
@@ -45,8 +47,10 @@ public class HouseholdBudgetApplication {
         if (optionalProduct.isEmpty()) {
             log.info("Product not found. Adding new Product.");
             optionalProduct = Optional.of(productService.addNewProduct(productName, categoryName));
-
         }
+
+        ProductEntity updatedProduct = productService.updateProduct(optionalProduct.get().getProductId(), newProductName);
+        System.out.println(updatedProduct);
 
         PriceService priceService = context.getBean(PriceService.class);
         PriceRepository priceRepository = context.getBean(PriceRepository.class);
