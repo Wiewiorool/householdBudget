@@ -55,8 +55,9 @@ public class CategoryService {
         if (category.isEmpty()) {
             throw new RuntimeException("Product not found " + categoryId);
         }
+        category.get().setCategoryId(categoryId);
         category.get().setCategoryName(categoryName);
 
-        return categoryRepository.save(category.get());
+        return category.get();
     }
 }
