@@ -53,11 +53,12 @@ public class CategoryService {
         Optional<CategoryEntity> category = categoryRepository.findById(categoryId);
 
         if (category.isEmpty()) {
-            throw new RuntimeException("Product not found " + categoryId);
+            throw new NullPointerException("Product not found " + categoryId);
         }
-        category.get().setCategoryId(categoryId);
-        category.get().setCategoryName(categoryName);
+        CategoryEntity categoryToReplaced = category.get();
+        categoryToReplaced.setCategoryId(categoryId);
+        categoryToReplaced.setCategoryName(categoryName);
 
-        return category.get();
+        return categoryToReplaced;
     }
 }
