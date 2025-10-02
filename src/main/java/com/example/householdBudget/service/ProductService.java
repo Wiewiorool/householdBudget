@@ -23,6 +23,7 @@ public class ProductService {
     }
 
     public ProductEntity addNewProduct(String productName, String categoryName) {
+
         CategoryEntity category = categoryService.findCategoryName(categoryName);
 
         ProductEntity prduct = ProductEntity.builder()
@@ -31,6 +32,7 @@ public class ProductService {
                 .build();
         return productRepository.save(prduct);
     }
+
     public Optional<ProductEntity> findProductByProductName(String productName) {
         List<ProductEntity> product = productRepository.findByProductName(productName);
 
@@ -52,5 +54,17 @@ public class ProductService {
             return Optional.empty();
         }
         return possibleProduct;
+    }
+
+    public ProductEntity updateProduct(Long productId, String productName) {
+        Optional<ProductEntity> existingProduct = productRepository.findById(productId);
+
+        if (existingProduct.isEmpty()) {
+            log.info("Product not found with id: " + productId);
+            throw new IllegalArgumentException("Product not found " + productId);
+        }
+        existingProduct.get().setProductName(productName);
+
+        return productRepository.save(existingProduct.get());
     }
 }
