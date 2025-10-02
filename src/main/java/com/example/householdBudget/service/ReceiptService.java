@@ -104,6 +104,20 @@ public class ReceiptService {
         }
         return possibleReceipt.get();
 
+    }
 
+    @Transactional
+    public ReceiptEntity updateReceiptByUser(long receiptId, Instant newDate, BigDecimal newReceiptPrice) {
+        Optional<ReceiptEntity> optionalReceipt = receiptRepository.findById(receiptId);
+
+        if (optionalReceipt.isEmpty()) {
+            log.info("Receipt does not exist with id: " + receiptId);
+            throw new IllegalArgumentException("Receipt does not exist");
+        }
+        ReceiptEntity updatedReceipt = optionalReceipt.get();
+        updatedReceipt.setDate(newDate);
+        updatedReceipt.setReceiptPrice(newReceiptPrice);
+
+        return updatedReceipt;
     }
 }
