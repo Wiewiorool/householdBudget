@@ -28,6 +28,8 @@ public class HouseholdBudgetApplication {
         String categoryName = "furniture";
         String newProductName = "water";
         String newCategoryName = "soft drink";
+        Instant newDate = Instant.now();
+        BigDecimal newPrice = new BigDecimal(666);
         BigDecimal milkPrice = BigDecimal.valueOf(1.99);
         BigDecimal waterPrice = BigDecimal.valueOf(3.00);
         BigDecimal receiptPrice = BigDecimal.valueOf(100);
@@ -65,5 +67,8 @@ public class HouseholdBudgetApplication {
 
         ReceiptService receiptService = context.getBean(ReceiptService.class);
         ReceiptEntity newReceipt = receiptService.registerNewReceipt(receiptPrice, optionalUser.get(), optionalProduct.get(), Instant.now());
+
+        ReceiptEntity updatedReceipt = receiptService.updateReceiptByUser(newReceipt.getReceiptId(), newDate, newPrice);
+        System.out.println("Updated receipt: " + updatedReceipt);
     }
 }
