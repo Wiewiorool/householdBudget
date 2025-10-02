@@ -60,7 +60,8 @@ public class ProductService {
         Optional<ProductEntity> existingProduct = productRepository.findById(productId);
 
         if (existingProduct.isEmpty()) {
-            throw new NullPointerException("Product not found " + productId);
+            log.info("Product not found with id: " + productId);
+            throw new IllegalArgumentException("Product not found " + productId);
         }
         existingProduct.get().setProductName(productName);
 
