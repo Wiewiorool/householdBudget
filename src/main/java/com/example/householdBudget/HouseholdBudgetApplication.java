@@ -1,9 +1,6 @@
 package com.example.householdBudget;
 
-import com.example.householdBudget.database.entities.PriceEntity;
-import com.example.householdBudget.database.entities.ProductEntity;
-import com.example.householdBudget.database.entities.ReceiptEntity;
-import com.example.householdBudget.database.entities.UserTableEntity;
+import com.example.householdBudget.database.entities.*;
 import com.example.householdBudget.repositories.PriceRepository;
 import com.example.householdBudget.service.*;
 import org.slf4j.Logger;
@@ -25,6 +22,8 @@ public class HouseholdBudgetApplication {
     public static void main(String[] args) {
         String firstName = "Jan";
         String lastName = "Kowalski";
+        String newUserName = "Tomasz";
+        String newUserLastName = "Duda";
         String productName = "juice";
         String categoryName = "furniture";
         String newProductName = "water";
@@ -41,6 +40,9 @@ public class HouseholdBudgetApplication {
 
         CategoryService categoryService = context.getBean(CategoryService.class);
         long newCategoryId = categoryService.addNewCategory(categoryName, firstName, lastName);
+
+        CategoryEntity switchCategories = categoryService.updateCategory(newCategoryId, newCategoryName);
+        System.out.println("Afete update " + switchCategories);
 
         ProductService productService = context.getBean(ProductService.class); // szukanie produktu zwracanie lub tworzenie nowego
         Optional<ProductEntity> optionalProduct = productService.findProductByProductName(productName);
@@ -59,10 +61,9 @@ public class HouseholdBudgetApplication {
         if (foundPriceForProductOptional.isEmpty()) {
             foundPriceForProductOptional = Optional.of(priceService.addNewProductPrice(milkPrice, optionalProduct.get()));
             System.out.println(foundPriceForProductOptional);
-
         }
+
         ReceiptService receiptService = context.getBean(ReceiptService.class);
         ReceiptEntity newReceipt = receiptService.registerNewReceipt(receiptPrice, optionalUser.get(), optionalProduct.get(), Instant.now());
-
     }
 }

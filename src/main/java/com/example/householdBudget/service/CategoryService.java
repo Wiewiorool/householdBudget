@@ -49,4 +49,16 @@ public class CategoryService {
         return savedNewCategory.getCategoryId();
     }
 
+    public CategoryEntity updateCategory(Long categoryId, String categoryName) {
+        Optional<CategoryEntity> category = categoryRepository.findById(categoryId);
+
+        if (category.isEmpty()) {
+            log.info("Category not found with id: " + categoryId);
+            throw new IllegalArgumentException("Product not found " + categoryId);
+        }
+        CategoryEntity categoryToReplaced = category.get();
+        categoryToReplaced.setCategoryName(categoryName);
+
+        return categoryToReplaced;
+    }
 }
