@@ -71,8 +71,8 @@ public class ProductService {
     public ProductEntity deletedProductById(long productId) {
         Optional<ProductEntity> optionalProductEntity = productRepository.findById(productId);
         if (optionalProductEntity.isEmpty()) {
-            log.info("Receipt does not exist with id: " + productId);
-            throw new IllegalArgumentException("Receipt does not exist");
+            log.info("Product does not exist with id: " + productId);
+            throw new IllegalArgumentException("Product does not exist");
         }
         ProductEntity deletedProduct = optionalProductEntity.get();
         productRepository.delete(deletedProduct);

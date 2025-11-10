@@ -41,8 +41,8 @@ public class UserService {
     public UserTableEntity deleteUserById(long userId) {
         Optional<UserTableEntity> optionalUserTable = userTableRepository.findById(userId);
         if (optionalUserTable.isEmpty()) {
-            log.info("Receipt does not exist with id: " + userId);
-            throw new IllegalArgumentException("Receipt does not exist");
+            log.info("User does not exist with id: " + userId);
+            throw new IllegalArgumentException("User does not exist");
         }
         UserTableEntity deletedUser = optionalUserTable.get();
         userTableRepository.delete(deletedUser);

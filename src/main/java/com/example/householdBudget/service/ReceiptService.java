@@ -120,7 +120,6 @@ public class ReceiptService {
 
         return updatedReceipt;
     }
-
     public ReceiptEntity deleteReceiptById(long receiptId) {
         Optional<ReceiptEntity> optionalReceipt = receiptRepository.findById(receiptId);
         if (optionalReceipt.isEmpty()) {
