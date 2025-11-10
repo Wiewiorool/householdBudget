@@ -41,7 +41,7 @@ public class HouseholdBudgetApplication {
         Optional<UserTableEntity> optionalUser = userService.findByNameAndSurname(firstName, lastName); //sprawdzanie czy user istnieje ja
         //UserTableEntity addNewUser = userService.addNewUser("Janek","Mickiewicz");
 
-        UserTableEntity deleteUserById = userService.deleteUserById(5);
+        //UserTableEntity deleteUserById = userService.deleteUserById(5);
 
 
         CategoryService categoryService = context.getBean(CategoryService.class);
@@ -59,6 +59,8 @@ public class HouseholdBudgetApplication {
 
         ProductEntity updatedProduct = productService.updateProduct(optionalProduct.get().getProductId(), newProductName);
         System.out.println(updatedProduct);
+
+        ProductEntity deleteProduct = productService.deletedProductById(8);
 
         PriceService priceService = context.getBean(PriceService.class);
         PriceRepository priceRepository = context.getBean(PriceRepository.class);

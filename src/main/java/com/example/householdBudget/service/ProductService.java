@@ -2,6 +2,7 @@ package com.example.householdBudget.service;
 
 import com.example.householdBudget.database.entities.CategoryEntity;
 import com.example.householdBudget.database.entities.ProductEntity;
+import com.example.householdBudget.database.entities.ReceiptEntity;
 import com.example.householdBudget.repositories.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +67,16 @@ public class ProductService {
         existingProduct.get().setProductName(productName);
 
         return productRepository.save(existingProduct.get());
+    }
+    public ProductEntity deletedProductById(long productId) {
+        Optional<ProductEntity> optionalProductEntity = productRepository.findById(productId);
+        if (optionalProductEntity.isEmpty()) {
+            log.info("Receipt does not exist with id: " + productId);
+            throw new IllegalArgumentException("Receipt does not exist");
+        }
+        ProductEntity deletedProduct = optionalProductEntity.get();
+        productRepository.delete(deletedProduct);
+        log.info("Product with id: " + deletedProduct.getProductId()+ " deleted!");
+        return deletedProduct;
     }
 }
