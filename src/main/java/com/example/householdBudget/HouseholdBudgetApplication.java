@@ -38,7 +38,11 @@ public class HouseholdBudgetApplication {
 
         UserService userService = context.getBean(UserService.class);
 
-        Optional<UserTableEntity> optionalUser = userService.findByNameAndSurname(firstName, lastName); //sprawdzanie czy user istnieje jak nie
+        Optional<UserTableEntity> optionalUser = userService.findByNameAndSurname(firstName, lastName); //sprawdzanie czy user istnieje ja
+        //UserTableEntity addNewUser = userService.addNewUser("Janek","Mickiewicz");
+
+        UserTableEntity deleteUserById = userService.deleteUserById(5);
+
 
         CategoryService categoryService = context.getBean(CategoryService.class);
         long newCategoryId = categoryService.addNewCategory(categoryName, firstName, lastName);
@@ -68,7 +72,7 @@ public class HouseholdBudgetApplication {
         ReceiptService receiptService = context.getBean(ReceiptService.class);
         //ReceiptEntity newReceipt = receiptService.registerNewReceipt(receiptPrice, optionalUser.get(), optionalProduct.get(), Instant.now());
 
-        ReceiptEntity deleteReceipt = receiptService.deleteReceiptById(4);
+        //ReceiptEntity deleteReceipt = receiptService.deleteReceiptById(4);
 
         /*ReceiptEntity updatedReceipt = receiptService.updateReceiptByUser(newReceipt.getReceiptId(), newDate, newPrice);
         System.out.println("Updated receipt: " + updatedReceipt);*/

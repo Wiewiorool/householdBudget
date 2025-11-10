@@ -1,5 +1,6 @@
 package com.example.householdBudget.service;
 
+import com.example.householdBudget.database.entities.ReceiptEntity;
 import com.example.householdBudget.database.entities.UserTableEntity;
 import com.example.householdBudget.repositories.UserTableRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -35,6 +36,18 @@ public class UserService {
             return Optional.empty();
         }
         return Optional.of(user.getFirst());
+    }
+
+    public UserTableEntity deleteUserById(long userId) {
+        Optional<UserTableEntity> optionalUserTable = userTableRepository.findById(userId);
+        if (optionalUserTable.isEmpty()) {
+            log.info("Receipt does not exist with id: " + userId);
+            throw new IllegalArgumentException("Receipt does not exist");
+        }
+        UserTableEntity deleteUser = optionalUserTable.get();
+        userTableRepository.delete(deleteUser);
+        log.info("User with id : " + deleteUser.getUserTableId() + " deleted!");
+        return deleteUser;
     }
 
 }
