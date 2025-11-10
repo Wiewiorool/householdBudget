@@ -47,6 +47,8 @@ public class HouseholdBudgetApplication {
         CategoryService categoryService = context.getBean(CategoryService.class);
         long newCategoryId = categoryService.addNewCategory(categoryName, firstName, lastName);
 
+        CategoryEntity deleteCategory = categoryService.deleteCategoryById(10);
+
         CategoryEntity switchCategories = categoryService.updateCategory(newCategoryId, newCategoryName);
         System.out.println("Afete update " + switchCategories);
 
@@ -60,7 +62,7 @@ public class HouseholdBudgetApplication {
         ProductEntity updatedProduct = productService.updateProduct(optionalProduct.get().getProductId(), newProductName);
         System.out.println(updatedProduct);
 
-        ProductEntity deleteProduct = productService.deletedProductById(8);
+        /*ProductEntity deleteProduct = productService.deletedProductById(8);*/
 
         PriceService priceService = context.getBean(PriceService.class);
         PriceRepository priceRepository = context.getBean(PriceRepository.class);
