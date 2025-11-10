@@ -127,9 +127,9 @@ public class ReceiptService {
             log.info("Receipt does not exist with id: " + receiptId);
             throw new IllegalArgumentException("Receipt does not exist");
         }
-        ReceiptEntity deleteReceipt = optionalReceipt.get();
-        receiptRepository.delete(deleteReceipt);
-        log.info("Receipt with id: " + deleteReceipt.getReceiptId()+ " deleted!");
-        return deleteReceipt;
+        ReceiptEntity deletedReceipt = optionalReceipt.get();
+        receiptRepository.delete(deletedReceipt);
+        log.info("Receipt with id: " + deletedReceipt.getReceiptId()+ " deleted!");
+        return deletedReceipt;
     }
 }

@@ -44,10 +44,10 @@ public class UserService {
             log.info("Receipt does not exist with id: " + userId);
             throw new IllegalArgumentException("Receipt does not exist");
         }
-        UserTableEntity deleteUser = optionalUserTable.get();
-        userTableRepository.delete(deleteUser);
-        log.info("User with id : " + deleteUser.getUserTableId() + " deleted!");
-        return deleteUser;
+        UserTableEntity deletedUser = optionalUserTable.get();
+        userTableRepository.delete(deletedUser);
+        log.info("User with id : " + deletedUser.getUserTableId() + " deleted!");
+        return deletedUser;
     }
 
 }
