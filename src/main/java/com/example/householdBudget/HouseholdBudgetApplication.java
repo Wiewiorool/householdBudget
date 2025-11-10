@@ -66,9 +66,11 @@ public class HouseholdBudgetApplication {
         }
 
         ReceiptService receiptService = context.getBean(ReceiptService.class);
-        ReceiptEntity newReceipt = receiptService.registerNewReceipt(receiptPrice, optionalUser.get(), optionalProduct.get(), Instant.now());
+        //ReceiptEntity newReceipt = receiptService.registerNewReceipt(receiptPrice, optionalUser.get(), optionalProduct.get(), Instant.now());
 
-        ReceiptEntity updatedReceipt = receiptService.updateReceiptByUser(newReceipt.getReceiptId(), newDate, newPrice);
-        System.out.println("Updated receipt: " + updatedReceipt);
+        ReceiptEntity deleteReceipt = receiptService.deleteReceiptById(4);
+
+        /*ReceiptEntity updatedReceipt = receiptService.updateReceiptByUser(newReceipt.getReceiptId(), newDate, newPrice);
+        System.out.println("Updated receipt: " + updatedReceipt);*/
     }
 }
