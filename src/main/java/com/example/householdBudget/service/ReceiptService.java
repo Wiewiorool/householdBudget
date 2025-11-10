@@ -129,7 +129,7 @@ public class ReceiptService {
         }
         ReceiptEntity deleteReceipt = optionalReceipt.get();
         receiptRepository.delete(deleteReceipt);
-        log.info("Receipt deleted: " + deleteReceipt);
+        log.info("Receipt with id: " + deleteReceipt.getReceiptId()+ " deleted!");
         return deleteReceipt;
     }
 }
