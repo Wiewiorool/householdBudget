@@ -50,4 +50,15 @@ public class PriceService {
         }
         return Optional.of(price.getFirst());
     }
+    public PriceEntity deletePriceById (long priceId) {
+        Optional<PriceEntity> optionalPriceEntity = priceRepository.findById(priceId);
+        if (optionalPriceEntity.isEmpty()) {
+            log.info("Price does not exist with id: " + priceId);
+            throw new IllegalArgumentException("Price does not exist");
+        }
+        PriceEntity deletedPrice = optionalPriceEntity.get();
+        priceRepository.delete(deletedPrice);
+        log.info("Price with id: " + deletedPrice.getPriceId()+ " deleted!");
+        return deletedPrice;
+    }
 }
