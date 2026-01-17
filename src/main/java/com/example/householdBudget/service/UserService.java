@@ -1,9 +1,9 @@
 package com.example.householdBudget.service;
 
-import com.example.householdBudget.database.entities.ReceiptEntity;
 import com.example.householdBudget.database.entities.UserTableEntity;
 import com.example.householdBudget.repositories.UserTableRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +48,11 @@ public class UserService {
         userTableRepository.delete(deletedUser);
         log.info("User with id : " + deletedUser.getUserTableId() + " deleted!");
         return deletedUser;
+    }
+
+    public List<UserTableEntity> getAllUsers(){
+        List<UserTableEntity> allUsers = userTableRepository.findAll();
+        return allUsers;
     }
 
 }
