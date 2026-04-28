@@ -1,7 +1,6 @@
 package com.example.householdBudget.service;
 
 import com.example.householdBudget.database.entities.CategoryEntity;
-import com.example.householdBudget.database.entities.ReceiptEntity;
 import com.example.householdBudget.database.entities.UserTableEntity;
 import com.example.householdBudget.repositories.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -62,6 +61,7 @@ public class CategoryService {
 
         return categoryToReplaced;
     }
+
     public CategoryEntity deleteCategoryById(long categoryId) {
         Optional<CategoryEntity> optionalCategoryEntity = categoryRepository.findById(categoryId);
         if (optionalCategoryEntity.isEmpty()) {
@@ -70,7 +70,7 @@ public class CategoryService {
         }
         CategoryEntity deletedCategory = optionalCategoryEntity.get();
         categoryRepository.delete(deletedCategory);
-        log.info("Category with id: " + deletedCategory.getCategoryId()+ " deleted!");
+        log.info("Category with id: " + deletedCategory.getCategoryId() + " deleted!");
         return deletedCategory;
     }
 }
