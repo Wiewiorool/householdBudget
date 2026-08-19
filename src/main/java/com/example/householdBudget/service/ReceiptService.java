@@ -120,4 +120,15 @@ public class ReceiptService {
 
         return updatedReceipt;
     }
+    public ReceiptEntity deleteReceiptById(long receiptId) {
+        Optional<ReceiptEntity> optionalReceipt = receiptRepository.findById(receiptId);
+        if (optionalReceipt.isEmpty()) {
+            log.info("Receipt does not exist with id: " + receiptId);
+            throw new IllegalArgumentException("Receipt does not exist");
+        }
+        ReceiptEntity deletedReceipt = optionalReceipt.get();
+        receiptRepository.delete(deletedReceipt);
+        log.info("Receipt with id: " + deletedReceipt.getReceiptId()+ " deleted!");
+        return deletedReceipt;
+    }
 }

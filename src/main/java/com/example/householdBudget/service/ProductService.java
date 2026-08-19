@@ -67,4 +67,15 @@ public class ProductService {
 
         return productRepository.save(existingProduct.get());
     }
+    public ProductEntity deleteProductById(long productId) {
+        Optional<ProductEntity> optionalProductEntity = productRepository.findById(productId);
+        if (optionalProductEntity.isEmpty()) {
+            log.info("Product does not exist with id: " + productId);
+            throw new IllegalArgumentException("Product does not exist");
+        }
+        ProductEntity deletedProduct = optionalProductEntity.get();
+        productRepository.delete(deletedProduct);
+        log.info("Product with id: " + deletedProduct.getProductId()+ " deleted!");
+        return deletedProduct;
+    }
 }

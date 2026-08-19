@@ -38,10 +38,16 @@ public class HouseholdBudgetApplication {
 
         UserService userService = context.getBean(UserService.class);
 
-        Optional<UserTableEntity> optionalUser = userService.findByNameAndSurname(firstName, lastName); //sprawdzanie czy user istnieje jak nie
+        Optional<UserTableEntity> optionalUser = userService.findByNameAndSurname(firstName, lastName); //sprawdzanie czy user istnieje ja
+        //UserTableEntity addNewUser = userService.addNewUser("Janek","Mickiewicz");
+
+        //UserTableEntity deleteUserById = userService.deleteUserById(5);
+
 
         CategoryService categoryService = context.getBean(CategoryService.class);
         long newCategoryId = categoryService.addNewCategory(categoryName, firstName, lastName);
+
+        CategoryEntity deleteCategory = categoryService.deleteCategoryById(10);
 
         CategoryEntity switchCategories = categoryService.updateCategory(newCategoryId, newCategoryName);
         System.out.println("Afete update " + switchCategories);
@@ -56,6 +62,8 @@ public class HouseholdBudgetApplication {
         ProductEntity updatedProduct = productService.updateProduct(optionalProduct.get().getProductId(), newProductName);
         System.out.println(updatedProduct);
 
+        /*ProductEntity deleteProduct = productService.deletedProductById(8);*/
+
         PriceService priceService = context.getBean(PriceService.class);
         PriceRepository priceRepository = context.getBean(PriceRepository.class);
         Optional<PriceEntity> foundPriceForProductOptional = priceService.findPriceForProductId(optionalProduct.get().getProductId());
@@ -66,9 +74,11 @@ public class HouseholdBudgetApplication {
         }
 
         ReceiptService receiptService = context.getBean(ReceiptService.class);
-        ReceiptEntity newReceipt = receiptService.registerNewReceipt(receiptPrice, optionalUser.get(), optionalProduct.get(), Instant.now());
+        //ReceiptEntity newReceipt = receiptService.registerNewReceipt(receiptPrice, optionalUser.get(), optionalProduct.get(), Instant.now());
 
-        ReceiptEntity updatedReceipt = receiptService.updateReceiptByUser(newReceipt.getReceiptId(), newDate, newPrice);
-        System.out.println("Updated receipt: " + updatedReceipt);
+        //ReceiptEntity deleteReceipt = receiptService.deleteReceiptById(4);
+
+        /*ReceiptEntity updatedReceipt = receiptService.updateReceiptByUser(newReceipt.getReceiptId(), newDate, newPrice);
+        System.out.println("Updated receipt: " + updatedReceipt);*/
     }
 }
