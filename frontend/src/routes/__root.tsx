@@ -1,15 +1,28 @@
-import * as React from 'react'
 import { Outlet, createRootRoute } from '@tanstack/react-router'
+import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
+import { TanStackDevtools } from '@tanstack/react-devtools'
+
+import '../style.css'
 
 export const Route = createRootRoute({
-  component: RootComponent,
+    component: RootComponent,
 })
 
 function RootComponent() {
-  return (
-    <React.Fragment>
-      <div>Hello "__root"!</div>
-      <Outlet />
-    </React.Fragment>
-  )
+    return (
+        <>
+            <Outlet />
+            <TanStackDevtools
+                config={{
+                    position: 'bottom-right',
+                }}
+                plugins={[
+                    {
+                        name: 'TanStack Router',
+                        render: <TanStackRouterDevtoolsPanel />,
+                    },
+                ]}
+            />
+        </>
+    )
 }
